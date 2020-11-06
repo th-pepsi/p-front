@@ -1,12 +1,6 @@
 <template>
   <div class="login-bg">
-    <a-form
-      layout="inline"
-      :model="formInline"
-      @submit="handleSubmit"
-      @submit.native.prevent
-      style="padding-top: 250px"
-    >
+    <a-form layout="inline" :model="formInline" style="padding-top: 250px">
       <div class="login-text">P-FRONT登录</div>
       <div>
         <a-form-item>
@@ -38,12 +32,8 @@
         </a-form-item>
       </div>
       <a-form-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          :disabled="formInline.user === '' || formInline.password === ''"
-        >
-         登录
+        <a-button type="primary" html-type="submit" @click="submitInfo">
+          登录
         </a-button>
       </a-form-item>
     </a-form>
@@ -51,24 +41,44 @@
 </template>
 <script lang='ts'>
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
+import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
+import { useStore   } from "vuex";
+import * as types from "../../utils/actions-types";
 
 export default {
   components: {
     UserOutlined,
     LockOutlined,
   },
-  data() {
-    return {
+  setup() {
+    const router = useRouter();
+     const store = useStore();
+
+    let state = reactive({
       formInline: {
         user: "",
         password: "",
       },
+    });
+
+    const submitInfo = () => {
+      console.log(state);
+      let parms = {
+        username: state.formInline.user,
+        password: state.formInline.password,
+      };
+      store.dispatch(types.LOGIN_ACTION,parms)
+      // Login(parms).then((res) => {
+      //   if (res.code === 200) {
+      //     router.push("/");
+      //   }
+      // });
     };
-  },
-  methods: {
-    handleSubmit(e) {
-      console.log(this.formInline);
-    },
+    return {
+      ...toRefs(state),
+      submitInfo,
+    };
   },
 };
 </script>
@@ -80,12 +90,12 @@ export default {
   overflow: hidden;
   text-align: center;
 }
-.login-text{
-    font-size: 26px;
-    color: #eee;
-    margin: 0 auto 15px auto;
-    text-align: center;
-    font-weight: 700;
+.login-text {
+  font-size: 26px;
+  color: #eee;
+  margin: 0 auto 15px auto;
+  text-align: center;
+  font-weight: 700;
 }
 .ip-class {
   width: 300px;

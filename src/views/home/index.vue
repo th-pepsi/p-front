@@ -1,24 +1,26 @@
 <template>
-  <a-list item-layout="horizontal" :data-source="data">
-    <template v-slot:renderItem="{ item, index }">
-      <a-list-item class="list-li" @click="intoDetail(index)">
-        <a-list-item-meta
-          description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-        >
-          <template v-slot:title>
-            <span>
-              {{ item.title }}
-            </span>
-          </template>
-          <template v-slot:avatar>
-            <a-avatar
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
-          </template>
-        </a-list-item-meta>
-      </a-list-item>
-    </template>
-  </a-list>
+  <div>
+    <a-list item-layout="horizontal" :data-source="data">
+      <template v-slot:renderItem="{ item, index }">
+        <a-list-item class="list-li" @click="intoDetail(index)">
+          <a-list-item-meta
+            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+          >
+            <template v-slot:title>
+              <span>
+                {{ item.title }}
+              </span>
+            </template>
+            <template v-slot:avatar>
+              <a-avatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              />
+            </template>
+          </a-list-item-meta>
+        </a-list-item>
+      </template>
+    </a-list>
+  </div>
 </template>
 <script>
 import { reactive, toRefs } from "vue";
@@ -44,7 +46,7 @@ export default {
       ],
     });
     const intoDetail = (idx) => {
-      router.push(`/detail/${idx}`)
+      router.push(`/detail/${idx}`);
     };
     return {
       ...toRefs(state),
@@ -54,6 +56,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .list-li {
   cursor: pointer;
 }

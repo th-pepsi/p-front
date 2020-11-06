@@ -60,10 +60,10 @@ import { computed, onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 export default {
  
-  setup(props) {
+  setup() {
     const router = useRouter()
     let state = reactive({
-      selectedKeys: ["1"],
+      selectedKeys: ["2"],
     });
     let loginStatus = computed(()=>{
       return router.currentRoute.value.name == "Login";
